@@ -45,10 +45,9 @@
 
 html,
 body {
-  height: 101vh;
-  /* overflow-x: hidden; */
-  /* overflow-y: scroll; */
-  --webkit-overflow-scrolling: touch;
+  min-height: 100%;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 * {
@@ -61,13 +60,14 @@ body {
 }
 
 .page {
-  width: min(100% - 48px, 530px);
+  width: min(100% - 40px, 530px);
   margin: 54px auto 96px;
   position: relative;
 }
 
 .profile {
-  font-size: 15px;
+  font-size: 0.95rem;
+  font-weight: 500;
   line-height: 1.53;
 }
 
@@ -78,14 +78,14 @@ p {
 }
 
 h1 {
-  font-size: 18px;
+  font-size: 1.5rem;
   font-weight: 500;
   letter-spacing: -.02em;
   margin-bottom: 8px;
 }
 
 h2 {
-  font-size: 16px;
+  font-size: 1.1rem;
   font-weight: 400;
   margin-bottom: 8px;
 }
@@ -204,19 +204,21 @@ hr {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 200px;
-  padding: 20px 0 40px 0;
+  height: 190px;
+  padding: 15px 0 35px 0;
   margin-top: 8px;
   overflow: visible;
   position: relative;
+  transform-origin: center center;
 }
 
 figure {
   position: relative;
-  width: 160px;
-  height: 120px;
+  width: 100px;
+  min-width: 100px;
+  height: 130px;
   margin: 0 -22px 0 0;
-  padding: 5px 8px 18px 8px;
+  padding: 5px 6px 18px 6px;
   overflow: visible;
   background: var(--figure-bg);
   box-shadow: var(--figure-shadow);
@@ -270,24 +272,25 @@ figure.is-selected img {
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 580px) {
   .page {
-    width: min(100% - 36px, 530px);
-    margin-top: 34px;
-  }
-
-  .profile {
-    font-size: 14px;
-  }
-
-  figure {
-    width: 63px;
-    height: 99px;
-    margin-right: -8px;
+    width: min(100% - 32px, 530px);
+    margin: 36px auto 64px;
   }
 
   .photo-stack {
-    height: 125px;
+    transform: scale(calc((100vw - 32px) / 540));
+  }
+}
+
+@media (max-width: 400px) {
+  .page {
+    width: min(100% - 24px, 530px);
+    margin: 28px auto 50px;
+  }
+
+  .photo-stack {
+    transform: scale(calc((100vw - 24px) / 540));
   }
 }
 
@@ -295,13 +298,13 @@ figure.is-selected img {
 .photo-label-inline {
   position: absolute;
   bottom: -28px;
-  /* left: 50%; */
-  /* transform: translateX(-50%); */
+  left: 50%;
+  transform: translateX(-50%);
   background: var(--tooltip-bg);
   color: var(--tooltip-text);
   padding: 4px 12px;
   border-radius: 16px;
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 500;
   white-space: nowrap;
   pointer-events: none;

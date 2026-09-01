@@ -40,7 +40,7 @@ const { name, title, intro, lore, contact, photos } = portfolio;
         <section class="intro animate-in" style="--stagger: 2">{intro.map((paragraph) => <p set:html={paragraph} />)}</section>
         <section class="background animate-in" style="--stagger: 3" id="writing">
           <h2>Background</h2>
-          <button class="lore-toggle" type="button" aria-expanded="false" aria-controls="lore">More <span aria-hidden="true">›</span></button>
+          <button class="lore-toggle" type="button" aria-expanded="false" aria-controls="lore">Flash back <span aria-hidden="true">›</span></button>
           <div class="lore" id="lore" aria-hidden="true" inert>
             <div class="lore-inner">{lore.map((paragraph) => <p set:html={paragraph} />)}</div>
           </div>

@@ -3,9 +3,13 @@ export const portfolio = {
   name: "Anish",
   title: "Anish — Portfolio",
   intro: [
-   
+    'A software engineer from kerala, India.',
+    'I build software & websites for living and am a keen tech enthusiast.',
+    'Have always associated with startups & small teams and am a big fan of open-source projects ',
+    'Hoping to start a business someday, somewhere. Yes you can judge me for saying "someday" becasue im a wantrepreneur/idea guy lol. '
   ],
   lore: [
+    "I have completed my undergrad in Biotechnology and taught myself to code afterwards (around 2021) out of sheer curiosity and the desire to make useful things. "
   ],
   contact: { socialLabel: "@itsanishmv", socialUrl: "https://x.com/itsanishmv", email: "aanishmv@gmail.com" },
   photos: [

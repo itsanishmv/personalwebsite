@@ -44,44 +44,25 @@ export default function PhotoLightbox({ photos }: PhotoLightboxProps) {
     return () => document.removeEventListener("keydown", handler);
   }, [isOpen, close]);
 
+  /* Click outside anywhere on website to close */
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleDocumentClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest(".photo-figure")) {
+        close();
+      }
+    };
+    document.addEventListener("click", handleDocumentClick);
+    return () => document.removeEventListener("click", handleDocumentClick);
+  }, [isOpen, close]);
+
   const middle = (photos.length - 1) / 2;
-  // Card width 160px - margin 22px = 138px step
-  const cardStep = 138;
+  // Card width 100px - margin 22px = 78px step
+  const cardStep = 78;
 
   return (
     <>
-      {/* Light transparent background blur when a photo is clicked */}
-      <AnimatePresence >
-        {isOpen && (
-          <motion.div
-            
-            // className="photo-backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.3 }}
-            
-            // exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            onClick={(e) => {
-              e.stopPropagation();
-              close();
-            }}
-            style={{
-              position: "fixed",
-              inset: 0,
-              zIndex: 45,
-              backgroundColor: "white",
-              opacity: 0.3,
-              backdropFilter: "blur(6px)",
-              WebkitBackdropFilter: "blur(6px)",
-              // border: "1px solid red",
-              // width : "1000px",
-              cursor: "pointer",
-              backgroundImage: "linear-gradient(45deg, #ffffffff, #f1edefff)"
-            }}
-          />
-        )}
-      </AnimatePresence>
-
       <div
         className="photo-stack"
         id="photo-stack"
@@ -91,7 +72,7 @@ export default function PhotoLightbox({ photos }: PhotoLightboxProps) {
           const offset = index - middle;
           const isCenter = index === Math.round(middle);
           const rotation = offset * 5;
-          const arcY = Math.pow(offset, 2) * 1.5;
+          const arcY = Math.pow(offset, 2) * 2;
           const isSelected = selectedIndex === index;
           const isHovered = hoveredIndex === index;
           const diff = hoveredIndex !== null ? index - hoveredIndex : null;
@@ -170,6 +151,7 @@ export default function PhotoLightbox({ photos }: PhotoLightboxProps) {
               style={{
                 zIndex,
                 transformOrigin: "50% 100%",
+
               }}
               tabIndex={0}
               onPointerEnter={() => setHoveredIndex(index)}
@@ -182,6 +164,28 @@ export default function PhotoLightbox({ photos }: PhotoLightboxProps) {
                 }
               }}
             >
+              {/* Smooth translucent blur overlay on unselected photos */}
+              <AnimatePresence>
+                {!isSelected && isOpen && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 0.55 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      zIndex: 10,
+                      borderRadius: "4px",
+                      backgroundColor: "white",
+                      backdropFilter: "blur(5px)",
+                      WebkitBackdropFilter: "blur(5px)",
+                      pointerEvents: "none",
+                    }}
+                  />
+                )}
+              </AnimatePresence>
+
               <img
                 src={src}
                 alt={label}
